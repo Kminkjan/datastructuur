@@ -3,7 +3,7 @@ package datastructuur;
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("Push the projectFILES!:(");
+		System.out.println("commit");
 
 	}
 
