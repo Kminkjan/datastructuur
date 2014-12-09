@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Meeting {
 	private String type;
 	private ArrayList<Piet> pieten;
-	public Meeting(String type) {
+	public Meeting() {
 		this.type = type;
 		pieten = new ArrayList<Piet>();
 	}
@@ -17,5 +17,7 @@ public class Meeting {
 		this.type ="";
 		assert !pieten.isEmpty(): "Pieten is already empty";
 	}
-	
+	public void startMeeting(){
+		
+	}
 }
