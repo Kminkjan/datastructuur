@@ -5,4 +5,6 @@ public abstract class Piet extends Thread {
 		this.name = name;
 		this.color = color;
 	}
+	
+	public abstract void doTask();
 }

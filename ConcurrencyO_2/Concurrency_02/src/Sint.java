@@ -1,20 +1,35 @@
+import java.util.concurrent.Semaphore;
 
-public class Sint extends Thread  {
-	private Meeting meeting;
-	public Sint(){
-		this.meeting = new Meeting();
+public class Sint extends Thread {
+	private Semaphore wakeSint, meeting;
+
+	public Sint(Semaphore wakeSint, Semaphore meeting) {
+		this.wakeSint = wakeSint;
+		this.meeting = meeting;
 	}
+
 	@Override
 	public void run() {
-		try {
-			this.sleep(8000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		while (true) {
+			try {
+				System.out.println("Sint engage meeting");
+				this.sleep(1000);
+				wakeSint.acquire();
+				if (meeting.getQueueLength() > 3) {
+
+					System.out.println("DO MEETING");
+
+					this.sleep(400);
+
+					meeting.release(3);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
-		
 	}
-	public void report(){
-		
+
+	public void report() {
+
 	}
 }

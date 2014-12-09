@@ -8,6 +8,8 @@ public class Meeting {
 //		Semaphore semaphore = new Semaphore(permits);
 		pieten = new ArrayList<Piet>();
 	}
+	
+	
 	public String getType(){
 		return this.type;
 	}
@@ -17,6 +19,7 @@ public class Meeting {
 	}
 	public void startMeeting(String type){
 		this.type = type;
+//		meeting.release(3);
 //		Acquire, hier mag niemand meer joinen wanneer hij gestart is.
 //		sleep(? seconden)
 //		Wanneer de meeting voorbij is mogen er weer pieten aamelden voor een meeting.
