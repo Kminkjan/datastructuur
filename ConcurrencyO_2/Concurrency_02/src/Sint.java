@@ -1,8 +1,8 @@
 import java.util.concurrent.Semaphore;
 
 public class Sint extends Thread {
-	private Semaphore wakeSint, werkOverleg, verzamelOverleg, blackPete, busy;
-	private boolean isBusy = false;
+	private Semaphore wakeSint, werkOverleg, verzamelOverleg, blackPete;
+	private boolean isBusy, verzameHasHappend, werkHasHappend;
 	
 
 	public Sint(Semaphore wakeSint, Semaphore werkOverleg,
@@ -13,6 +13,8 @@ public class Sint extends Thread {
 		assert werkOverleg.availablePermits() == 0 : "werkOverleg has initial permits";
 		assert verzamelOverleg != null : "wakeSint is null";
 		assert verzamelOverleg.availablePermits() == 0 : "verzamelOverleg has initial permits";
+		assert blackPete != null : "blackPete is null";
+		assert blackPete.availablePermits() == 0 : "blackPete has initial permits";
 
 		this.wakeSint = wakeSint;
 		this.werkOverleg = werkOverleg;
@@ -26,7 +28,7 @@ public class Sint extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				this.sleep(1000);
+				doSintStuff();
 				wakeSint.acquire(); /* Sleep till the situation has changed */
 				if (verzamelOverleg.getQueueLength() > 3
 						&& blackPete.hasQueuedThreads()) {
@@ -35,7 +37,7 @@ public class Sint extends Thread {
 					if (blackPete.getQueueLength() > 1) {
 						blackPete.release(blackPete.getQueueLength() - 1);
 					}
-					
+					verzameHasHappend = true;
 					doMeeting();
 					
 					/* Invite verzamelPieten to the meeting */
@@ -44,21 +46,28 @@ public class Sint extends Thread {
 					blackPete.release();
 				} else if ((werkOverleg.getQueueLength() + blackPete
 						.getQueueLength()) > 2) {
+					
 					System.out.println("DO WerkOverleg");
+					
+					werkHasHappend = true;
 					doMeeting();
+					
 					blackPete.release(blackPete.getQueueLength());
-					werkOverleg.release(werkOverleg.getQueueLength()); /*
-																		 * Invite
-																		 * 3
-																		 * werkPieten
-																		 * to
-																		 * the
-																		 * meeting
-																		 */
+					/* Invite 3 werkPieten to the meeting */
+					werkOverleg.release(werkOverleg.getQueueLength()); 
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	private void doSintStuff() {
+		try {
+			this.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -75,5 +84,13 @@ public class Sint extends Thread {
 
 	public boolean isBusy() {
 		return isBusy;
+	}
+
+	public boolean isVerzameHasHappend() {
+		return verzameHasHappend;
+	}
+
+	public boolean isWerkHasHappend() {
+		return werkHasHappend;
 	}
 }

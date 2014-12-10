@@ -3,7 +3,7 @@ import java.util.concurrent.Semaphore;
 
 public class SintSim {
 	
-	private Semaphore werkOverleg, verzamelOverleg, wakeSint, blackPete, busy;
+	private Semaphore werkOverleg, verzamelOverleg, wakeSint, blackPete;
 	private Piet[] pietArray;
 	
 	private final static int PIET_SIZE = 10;

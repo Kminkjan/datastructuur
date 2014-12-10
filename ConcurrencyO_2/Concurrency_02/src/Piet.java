@@ -8,6 +8,14 @@ public abstract class Piet extends Thread {
 
 	Piet(String name, String color, Semaphore meeting, Semaphore wakeSint,
 			Sint sint) {
+		assert name != null : "name is null";
+		assert !name.isEmpty() : "name is empty";
+		assert color != null : "color is null";
+		assert !color.isEmpty() : "color is empty";
+		assert meeting != null : "meeting Semaphore is null";
+		assert wakeSint != null : "meeting Semaphore is null";
+		assert sint != null : "sint is null";
+		
 		this.name = name;
 		this.color = color;
 		this.meeting = meeting;
