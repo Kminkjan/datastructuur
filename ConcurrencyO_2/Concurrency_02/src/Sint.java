@@ -1,10 +1,23 @@
 import java.util.concurrent.Semaphore;
 
+// TODO cannot use queue length
+
 public class Sint extends Thread {
 	private Semaphore wakeSint, werkOverleg, verzamelOverleg, blackPete;
 	private boolean isBusy, verzameHasHappend, werkHasHappend;
-	
 
+	/**
+	 * Creates a sint
+	 * 
+	 * @param wakeSint
+	 *            The Semaphore that wakes the Sint
+	 * @param werkOverleg
+	 *            The werk Semaphore
+	 * @param verzamelOverleg
+	 *            The verzamel Semaphore
+	 * @param blackPete
+	 *            The blackPete Semaphore
+	 */
 	public Sint(Semaphore wakeSint, Semaphore werkOverleg,
 			Semaphore verzamelOverleg, Semaphore blackPete) {
 		assert wakeSint != null : "wakeSint is null";
@@ -21,8 +34,6 @@ public class Sint extends Thread {
 		this.verzamelOverleg = verzamelOverleg;
 		this.blackPete = blackPete;
 	}
-	
-	
 
 	@Override
 	public void run() {
@@ -30,38 +41,46 @@ public class Sint extends Thread {
 			try {
 				doSintStuff();
 				wakeSint.acquire(); /* Sleep till the situation has changed */
+
 				if (verzamelOverleg.getQueueLength() > 3
 						&& blackPete.hasQueuedThreads()) {
-					
+
 					werkOverleg.release(werkOverleg.getQueueLength());
+
+					/*
+					 * If there is more then one black Pete available, release
+					 * all but one
+					 */
 					if (blackPete.getQueueLength() > 1) {
 						blackPete.release(blackPete.getQueueLength() - 1);
 					}
+
 					verzameHasHappend = true;
 					doMeeting();
-					
+
 					/* Invite verzamelPieten to the meeting */
-					verzamelOverleg.release(verzamelOverleg.getQueueLength()); 
+					verzamelOverleg.release(verzamelOverleg.getQueueLength());
 					/* invite a black pete to the meeting */
 					blackPete.release();
+
 				} else if ((werkOverleg.getQueueLength() + blackPete
 						.getQueueLength()) > 2) {
-					
+
 					System.out.println("DO WerkOverleg");
-					
+
 					werkHasHappend = true;
 					doMeeting();
-					
+
 					blackPete.release(blackPete.getQueueLength());
 					/* Invite 3 werkPieten to the meeting */
-					werkOverleg.release(werkOverleg.getQueueLength()); 
+					werkOverleg.release(werkOverleg.getQueueLength());
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	private void doSintStuff() {
 		try {
 			this.sleep(1000);
