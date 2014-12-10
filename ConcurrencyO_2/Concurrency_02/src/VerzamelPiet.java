@@ -2,8 +2,8 @@ import java.util.concurrent.Semaphore;
 
 public class VerzamelPiet extends Piet {
 	public VerzamelPiet(String name, String color, Semaphore meeting,
-			Semaphore wakeSint) {
-		super(name, color, meeting, wakeSint);
+			Semaphore wakeSint, Sint sint) {
+		super(name, color, meeting, wakeSint, sint);
 	}
 
 	public void doTask() {

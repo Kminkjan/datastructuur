@@ -1,14 +1,18 @@
 import java.util.concurrent.Semaphore;
 
 public abstract class Piet extends Thread {
-	String name, color;
-	Semaphore meeting, wakeSint;
+	protected String name;
+	private String color;
+	private Semaphore meeting, wakeSint;
+	private Sint sint;
 
-	Piet(String name, String color, Semaphore meeting, Semaphore wakeSint) {
+	Piet(String name, String color, Semaphore meeting, Semaphore wakeSint,
+			Sint sint) {
 		this.name = name;
 		this.color = color;
 		this.meeting = meeting;
 		this.wakeSint = wakeSint;
+		this.sint = sint;
 	}
 
 	@Override
@@ -16,9 +20,15 @@ public abstract class Piet extends Thread {
 		while (true) {
 			try {
 				doTask();
-				wakeSint.release(); /* Notify the Sint the situation has changed */
-				System.out.println(name + " waiting for meeting");
-				meeting.acquire(); /* Try to acquire / get in the meeting */
+				if (!sint.isBusy()) {
+					/* Notify the Sint the situation has changed */
+					wakeSint.release();
+					System.out.println(name + " waiting for meeting");
+					/* Try to acquire / get in the meeting */
+					meeting.acquire();
+				} else {
+					System.out.println(name + " they don't want me!");
+				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

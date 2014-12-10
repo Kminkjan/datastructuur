@@ -1,8 +1,8 @@
 import java.util.concurrent.Semaphore;
 
 public class WerkPiet extends Piet {
-	public WerkPiet(String name, String color, Semaphore m, Semaphore w) {
-		super(name, color, m, w);
+	public WerkPiet(String name, String color, Semaphore m, Semaphore w, Sint sint) {
+		super(name, color, m, w, sint);
 	}
 
 	@Override
