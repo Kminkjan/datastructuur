@@ -9,7 +9,7 @@ package datastructuur;
 public class RSHeap {
 
 	int[] heap, memory;
-	private int inputIndex, lastDelete, deadspaceCount = 0;
+	private int inputIndex, lastDelete, deadspaceCount = 0, memoryIndex = 0;
 	boolean deleted = false;
 
 	public RSHeap(int mSize) {
@@ -23,11 +23,21 @@ public class RSHeap {
 
 	public RSHeap(int[] init, int heapSize) {
 		inputIndex = 0;
-		this.heap = new int[init.length];
+		this.memory = init;
+		this.heap = new int[heapSize];
 		for (int i = 0; i < heap.length; i++) {
-			insert(init[i]);
+			insert(memory[i]);
+			++memoryIndex;
 		}
 		//System.out.println(printToDotString());
+	}
+	
+	public void createRuns() {
+		while(memoryIndex < memory.length) {
+		delete();
+		insert(memory[memoryIndex]);
+		++memoryIndex;
+		}
 	}
 
 	public void insert(int item) {
