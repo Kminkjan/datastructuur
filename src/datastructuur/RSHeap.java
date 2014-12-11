@@ -13,6 +13,7 @@ public class RSHeap {
 	boolean deleted = false;
 
 	public RSHeap(int mSize) {
+		assert mSize > 0 : "size is to low";
 		inputIndex = 0;
 		this.heap = new int[mSize];
 		for (int i = 0; i < heap.length; i++) {
@@ -22,6 +23,10 @@ public class RSHeap {
 	}
 
 	public RSHeap(int[] init, int heapSize) {
+		assert init !=null :"[] init is null";
+		assert init.length> 0 :"[] init is empty";
+		assert heapSize > 0 :"heapsize is to low";
+		
 		inputIndex = 0;
 		this.memory = init;
 		this.heap = new int[heapSize];
@@ -40,7 +45,7 @@ public class RSHeap {
 		}
 	}
 
-	public void insert(int item) {
+	public void insert(int item){
 		heap[inputIndex] = item;
 		if (deleted && item < lastDelete) {
 			++deadspaceCount;
@@ -75,13 +80,14 @@ public class RSHeap {
 	}
 
 	private void swap(int index, int parent) {
+		assert index >= 0 : "index is to low";
 		int temp = heap[index];
 		heap[index] = heap[parent];
 		heap[parent] = temp;
 	}
 
 	private void percolateDown(int index) {
-		assert index > 0 : "index is to low";
+		assert index >= 0 : "index is to low";
 		int childLeft = index * 2 + 1, childRight= (index * 2) + 2;;
 		while (childLeft < heap.length-1 - deadspaceCount) {
 			
@@ -112,6 +118,7 @@ public class RSHeap {
 	}
 
 	private void percolateUp(int index) {
+		assert index >= 0 : "index is to low";
 		while (index != 0) {
 			int parent = ((index - 1) / 2);
 			if (heap[index] < heap[parent]) {
