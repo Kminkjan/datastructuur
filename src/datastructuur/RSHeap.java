@@ -81,6 +81,7 @@ public class RSHeap {
 	}
 
 	private void percolateDown(int index) {
+		assert index > 0 : "index is to low";
 		int childLeft = index * 2 + 1, childRight= (index * 2) + 2;;
 		while (childLeft < heap.length-1 - deadspaceCount) {
 			
