@@ -57,7 +57,8 @@ public class RSHeap {
 	}
 	
 	public int getRoot() {
-		return value;
+	
+		return value;	
 	}
 
 	public boolean isLeaf() {
