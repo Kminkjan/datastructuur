@@ -2,6 +2,8 @@ import java.util.concurrent.Semaphore;
 
 public class WerkPiet extends Piet {
 
+	private SintSim sim;
+
 	/**
 	 * Creates a new Piet
 	 * 
@@ -15,11 +17,17 @@ public class WerkPiet extends Piet {
 	 *            The Sint waking Semaphore
 	 * @param sint
 	 *            The almighty Sint
+	 * @param submitMutex
+	 *            The submitMutex, used for submiting for a meeting
+	 * @param sim
+	 *            This pete's simulation
 	 */
 	public WerkPiet(String name, String color, Semaphore meeting,
-			Semaphore wakeSint, Sint sint) {
+			Semaphore wakeSint, Sint sint, Semaphore submitMutex, SintSim sim) {
 		/* asserts are handled in the super class */
-		super(name, color, meeting, wakeSint, sint);
+		super(name, color, meeting, wakeSint, sint, submitMutex);
+		assert sim != null;
+		this.sim = sim;
 	}
 
 	@Override
@@ -27,9 +35,19 @@ public class WerkPiet extends Piet {
 		// Work
 		try {
 			System.out.println(name + " does Working");
-			this.sleep((long) (Math.random() * 8000));
+			Thread.sleep((long) (Math.random() * 8000));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void addCount() {
+		if (isBlack()) {
+			sim.setBlackCount(sim.getBlackCount() + 1);
+		} else {
+			sim.setWorkCount(sim.getWorkCount() + 1);
 		}
 
 	}

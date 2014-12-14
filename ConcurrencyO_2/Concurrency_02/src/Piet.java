@@ -8,7 +8,7 @@ import java.util.concurrent.Semaphore;
 public abstract class Piet extends Thread {
 	protected String name;
 	private String color;
-	private Semaphore meeting, wakeSint;
+	private Semaphore meeting, wakeSint, submitMutex;
 	private Sint sint;
 
 	/**
@@ -20,7 +20,7 @@ public abstract class Piet extends Thread {
 	 * @param sint		The almighty Sint
 	 */
 	Piet(String name, String color, Semaphore meeting, Semaphore wakeSint,
-			Sint sint) {
+			Sint sint, Semaphore submitMutex) {
 		assert name != null : "name is null";
 		assert !name.isEmpty() : "name is empty";
 		assert color != null : "color is null";
@@ -28,11 +28,13 @@ public abstract class Piet extends Thread {
 		assert meeting != null : "meeting Semaphore is null";
 		assert wakeSint != null : "meeting Semaphore is null";
 		assert sint != null : "sint is null";
+		assert submitMutex != null : "submitMutex = null";
 		
 		this.name = name;
 		this.color = color;
 		this.meeting = meeting;
 		this.wakeSint = wakeSint;
+		this.submitMutex = submitMutex;
 		this.sint = sint;
 	}
 
@@ -41,14 +43,19 @@ public abstract class Piet extends Thread {
 		while (true) {
 			try {
 				doTask();
+				/* Check if the sint is busy with a meeting */
+				submitMutex.acquire();
 				if (!sint.isBusy()) {
+					addCount();
+					submitMutex.release();
 					/* Notify the Sint the situation has changed */
 					wakeSint.release();
 					System.out.println(name + " waiting for meeting");
 					/* Try to acquire / get in the meeting */
 					meeting.acquire();
 				} else {
-					System.out.println(name + " they don't want me!");
+					System.out.print(name + " they don't want me! ");
+					submitMutex.release();
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -56,14 +63,19 @@ public abstract class Piet extends Thread {
 		}
 
 	}
+	
+	/**
+	 * Add this pete to the Simulation's count
+	 */
+	public abstract void addCount();
 
 	/**
-	 * Do the task this Piet has.
+	 * Do the task this Pete has.
 	 */
 	public abstract void doTask();
 
 	/**
-	 * @return true if the Piet is black.
+	 * @return true if the Pete is black.
 	 */
 	public boolean isBlack() {
 		return color.equals("black");

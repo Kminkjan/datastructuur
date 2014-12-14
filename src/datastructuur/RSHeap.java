@@ -13,6 +13,7 @@ public class RSHeap {
 			lastRunIndex = 0, runCount = 1;
 	private boolean deleted = false;
 
+<<<<<<< HEAD
 	/**
 	 * Creates the RSHeap
 	 * 
@@ -32,6 +33,14 @@ public class RSHeap {
 		/* If the amount is lower then the heapSize, adjust the heapSize */
 		if (memory.length < heapSize) {
 			heapSize = memory.length;
+=======
+	public RSHeap(int mSize) {
+		assert mSize > 0 : "size is to low";
+		inputIndex = 0;
+		this.heap = new int[mSize];
+		for (int i = 0; i < heap.length; i++) {
+			insert((int) (Math.random() * mSize));
+>>>>>>> branch 'master' of https://github.com/Kminkjan/datastructuur.git
 		}
 		this.heap = new int[heapSize];
 
@@ -47,6 +56,7 @@ public class RSHeap {
 		assert heap != null : "heap is null";
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Puts everything that is in the deadspace and makes a final run of it
 	 */
@@ -57,6 +67,16 @@ public class RSHeap {
 		deleted = false;
 
 		/* Put all the deadspace items in the new heap */
+=======
+	public RSHeap(int[] init, int heapSize) {
+		assert init !=null :"[] init is null";
+		assert init.length> 0 :"[] init is empty";
+		assert heapSize > 0 :"heapsize is to low";
+		
+		inputIndex = 0;
+		this.memory = init;
+		this.heap = new int[heapSize];
+>>>>>>> branch 'master' of https://github.com/Kminkjan/datastructuur.git
 		for (int i = 0; i < heap.length; i++) {
 			insert(tempArray[tempArray.length - (i + 1)]);
 		}
@@ -97,6 +117,7 @@ public class RSHeap {
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Inserts an item in the heap
 	 * 
@@ -105,6 +126,9 @@ public class RSHeap {
 	 */
 	private void insert(int item) {
 		/* insert the item */
+=======
+	public void insert(int item){
+>>>>>>> branch 'master' of https://github.com/Kminkjan/datastructuur.git
 		heap[inputIndex] = item;
 		if (deleted && item < lastDelete) {
 			/* It can't be added: put it in the deadspace */
@@ -170,9 +194,13 @@ public class RSHeap {
 	 * @param parent
 	 */
 	private void swap(int index, int parent) {
+<<<<<<< HEAD
 		assert index >= 0 : "index too low";
 		assert parent >= 0 : "parent too low";
 
+=======
+		assert index >= 0 : "index is to low";
+>>>>>>> branch 'master' of https://github.com/Kminkjan/datastructuur.git
 		int temp = heap[index];
 		heap[index] = heap[parent];
 		heap[parent] = temp;
@@ -185,7 +213,16 @@ public class RSHeap {
 	 *            The index that should be percolated
 	 */
 	private void percolateDown(int index) {
+<<<<<<< HEAD
 		assert index >= 0 : "index too low";
+=======
+		assert index >= 0 : "index is to low";
+		int childLeft = index * 2 + 1, childRight= (index * 2) + 2;;
+		while (childLeft < heap.length-1 - deadspaceCount) {
+			
+//			System.out.println("index: " + memory[index]);
+//			System.out.println("child: " + memory[childLeft]);
+>>>>>>> branch 'master' of https://github.com/Kminkjan/datastructuur.git
 
 		int childLeft = index * 2 + 1, childRight = (index * 2) + 2;
 		while (childLeft < inputIndex) {
@@ -219,8 +256,12 @@ public class RSHeap {
 	 *            Te index thad should be percolated
 	 */
 	private void percolateUp(int index) {
+<<<<<<< HEAD
 		assert index >= 0 : "index too low";
 
+=======
+		assert index >= 0 : "index is to low";
+>>>>>>> branch 'master' of https://github.com/Kminkjan/datastructuur.git
 		while (index != 0) {
 			int parent = ((index - 1) / 2);
 			if (heap[index] < heap[parent]) {
