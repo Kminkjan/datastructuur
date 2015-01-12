@@ -8,5 +8,4 @@ public class Main {
 		System.out.println("DOEWNLOADET");
 		System.out.println("POP THE HOOD");
 	}
-
 }
