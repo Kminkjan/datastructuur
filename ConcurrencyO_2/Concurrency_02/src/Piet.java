@@ -53,10 +53,14 @@ public abstract class Piet extends Thread {
 					System.out.println(name + " waiting for meeting");
 					/* Try to acquire / get in the meeting */
 					meeting.acquire();
+					
+					// TODO sub the count
 				} else {
 					System.out.print(name + " they don't want me! ");
 					submitMutex.release();
 				}
+				
+				// TODO sub the count
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -68,6 +72,7 @@ public abstract class Piet extends Thread {
 	 * Add this pete to the Simulation's count
 	 */
 	public abstract void addCount();
+	public abstract void subCount();
 
 	/**
 	 * Do the task this Pete has.
@@ -79,5 +84,10 @@ public abstract class Piet extends Thread {
 	 */
 	public boolean isBlack() {
 		return color.equals("black");
+	}
+	
+	public void domeeting() {
+		// tryAquire meetingspots()
+		// if gelukt && if meetingspots.permits == 0
 	}
 }

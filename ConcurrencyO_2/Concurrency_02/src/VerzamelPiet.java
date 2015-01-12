@@ -45,4 +45,9 @@ public class VerzamelPiet extends Piet {
 	public void addCount() {
 		sim.setCollectCount(sim.getCollectCount() + 1);
 	}
+	
+	@Override
+	public void subCount() {
+		sim.setCollectCount(sim.getBlackCount() - 1);	
+	}
 }

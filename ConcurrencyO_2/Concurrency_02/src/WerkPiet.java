@@ -41,6 +41,17 @@ public class WerkPiet extends Piet {
 		}
 
 	}
+	
+	public void goToMeeting() {
+		Semaphore workMeeting = new Semaphore(3);
+		Semaphore collectMeeting = new Semaphore(1);
+		
+		if (isBlack() && collectMeeting.tryAcquire()) {
+			/* In the collectMeeting */
+		} else if (workMeeting.tryAcquire()) {
+			/* In te workMeeting */
+		}
+	}
 
 	@Override
 	public void addCount() {
@@ -49,6 +60,14 @@ public class WerkPiet extends Piet {
 		} else {
 			sim.setWorkCount(sim.getWorkCount() + 1);
 		}
-
+	}
+	
+	@Override
+	public void subCount() {
+		if (isBlack()) {
+			sim.setBlackCount(sim.getBlackCount() - 1);
+		} else {
+			sim.setWorkCount(sim.getWorkCount() - 1);
+		}
 	}
 }
