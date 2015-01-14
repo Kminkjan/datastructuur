@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 
 public class CollectPete extends Pete {
 
+    private final ActorRef adminPete;
 
     /**
      * Creates a new Piet
@@ -13,7 +14,10 @@ public class CollectPete extends Pete {
      * @param administrationPete
      */
     CollectPete(String name, String color, ActorRef administrationPete) {
-        super("CollectPete " + name, color, administrationPete);
+        super("CollectPete " + name, color);
+        assert administrationPete != null : "administrationPete is null";
+
+        this.adminPete = administrationPete;
     }
 
     @Override
@@ -24,7 +28,7 @@ public class CollectPete extends Pete {
     }
 
     @Override
-    public void onReceive(Object arg0) throws Exception {
-        // TODO Auto-generated method stub
+    public void applyForMeeting() {
+        adminPete.tell(new ApplyMessage(false), getSelf());
     }
 }

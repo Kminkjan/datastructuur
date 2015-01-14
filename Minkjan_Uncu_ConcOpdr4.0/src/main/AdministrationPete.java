@@ -1,42 +1,41 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import main.Message.MessageType;
 import akka.actor.ActorRef;
+import main.Message.MessageType;
+
+import java.util.ArrayList;
 
 public class AdministrationPete extends Pete {
 
-	private boolean meetingGoingOn;
-	private final ArrayList<ActorRef> peteList;
-	private final ActorRef sint;
-	
-	AdministrationPete(String name, String color, ActorRef administrationPete, ActorRef sint, ActorRef adminPete) {
-		super(name, color, administrationPete);
-		this.peteList = new ArrayList<ActorRef>();
-		this.sint = sint;
-	}
+    private boolean meetingGoingOn;
+    private final ArrayList<ActorRef> peteList;
+    private final ActorRef sint;
 
-	@Override
-	public void doTask() throws InterruptedException {
-		System.out.println(getPeteName() + " is Administrating");
-		Thread.sleep(1000);
-	}
+    AdministrationPete(String name, String color, ActorRef administrationPete, ActorRef sint, ActorRef adminPete) {
+        super(name, color, administrationPete);
+        this.peteList = new ArrayList<ActorRef>();
+        this.sint = sint;
+    }
 
-	@Override
-	public void onReceive(Object message) throws Exception {
-		if (message instanceof Message) {
-			Message receivedMessage = (Message) message;
-			
-			switch (receivedMessage.getType()) {
-			case APPLY_FOR_MEETING:
-				if (!meetingGoingOn) {
-					getSender().tell(new Message(MessageType.ACCEPTED),
-							getSelf());
-					peteList.add(getSender());
-					if (checkIfMeetingPossible()) {
-						meetingGoingOn = true;
+    @Override
+    public void doTask() throws InterruptedException {
+        System.out.println(getPeteName() + " is Administrating");
+        Thread.sleep(1000);
+    }
+
+    @Override
+    public void onReceive(Object message) throws Exception {
+        if (message instanceof Message) {
+            Message receivedMessage = (Message) message;
+
+            switch (receivedMessage.getType()) {
+                case APPLY_FOR_MEETING:
+                    if (!meetingGoingOn) {
+                        getSender().tell(new Message(MessageType.ACCEPTED),
+                                getSelf());
+                        peteList.add(getSender());
+                        if (checkIfMeetingPossible()) {
+                            meetingGoingOn = true;
 
 						/* TODO is deze clone goed? */
 						sint.tell(new PurposeMessage((ArrayList<ActorRef>) peteList.clone()), getSelf());
@@ -93,4 +92,5 @@ public class AdministrationPete extends Pete {
 		}
 		return false;
 	}
+
 }

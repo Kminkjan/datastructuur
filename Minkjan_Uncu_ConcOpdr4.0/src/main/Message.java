@@ -13,10 +13,6 @@ public class Message {
 		this.type = type;
 	}
 	
-	public Message(List<Pete> peteList) {
-		this.type = MessageType.PURPOSE_MEETING;
-	}
-	
 	public final MessageType getType() {
 		return this.type;
 	}

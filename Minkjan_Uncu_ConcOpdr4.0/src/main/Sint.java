@@ -31,11 +31,15 @@ public class Sint extends UntypedActor {
                 case PURPOSE_MEETING:
                     for (ActorRef actor : ((PurposeMessage) recievedMessage).getAvailablePeteList()) {
                         actor.tell(new Message(Message.MessageType.INVITE_TO_MEETING), getSelf());
+                        ++expectedPetes;
                     }
                     break;
                 case ARRIVED_IN_MEETING:
                     petesInMeeting.add(getSender());
-                    if (true) {
+
+                    if (petesInMeeting.size() == expectedPetes) {
+
+                        /* Start the meeting */
                         Thread.sleep(2000);
                         for (ActorRef actor : petesInMeeting) {
                             actor.tell(new Message(Message.MessageType.MEETING_DONE), getSelf());
