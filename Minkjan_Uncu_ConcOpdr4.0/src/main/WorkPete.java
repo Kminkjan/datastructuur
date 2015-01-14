@@ -19,7 +19,6 @@ public class WorkPete extends Pete {
 
 		this.adminPete = administrationPete;
 	}
-
 	@Override
 	public void doTask() throws InterruptedException {
 		// Work
@@ -30,6 +29,6 @@ public class WorkPete extends Pete {
 
 	@Override
 	public void applyForMeeting() {
-		adminPete.tell(new ApplyMessage(true), getSelf());
+		adminPete.tell(new ApplyMessage(true, super.isBlack()), getSelf());
 	}
 }

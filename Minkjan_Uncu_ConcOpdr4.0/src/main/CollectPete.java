@@ -29,6 +29,6 @@ public class CollectPete extends Pete {
 
     @Override
     public void applyForMeeting() {
-        adminPete.tell(new ApplyMessage(false), getSelf());
+        adminPete.tell(new ApplyMessage(false, super.isBlack()), getSelf());
     }
 }

@@ -16,5 +16,4 @@ public class Message {
 	public final MessageType getType() {
 		return this.type;
 	}
-
 }

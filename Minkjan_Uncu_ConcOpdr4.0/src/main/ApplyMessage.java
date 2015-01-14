@@ -6,10 +6,11 @@ package main;
 public final class ApplyMessage extends Message {
 
     private final boolean isWorkPete;
-
-    public ApplyMessage(boolean isWorkPete) {
+    private final boolean isBlack;
+    public ApplyMessage(boolean isWorkPete, boolean isBlack) {
         super(MessageType.APPLY_FOR_MEETING);
         this.isWorkPete = isWorkPete;
+        this.isBlack = isBlack;
     }
 
     /**
@@ -19,4 +20,7 @@ public final class ApplyMessage extends Message {
     public boolean isWorkPete() {
         return this.isWorkPete;
     }
+	public boolean isBlack(){
+		return this.isBlack;
+	}
 }
