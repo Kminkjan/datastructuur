@@ -48,7 +48,7 @@ public abstract class Pete extends UntypedActor {
                     /* My application is accepted, now wait till i receive an invitation */
                     break;
                 case DECLINED:
-                    /* I can't
+                    /* I can't */
                     doTask();
                     administrationPete.tell(new Message(MessageType.APPLY_FOR_MEETING), getSelf());
                     break;
