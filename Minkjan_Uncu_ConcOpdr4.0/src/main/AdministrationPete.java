@@ -9,11 +9,13 @@ import akka.actor.ActorRef;
 public class AdministrationPete extends Pete {
 
 	private boolean meetingGoingOn;
-	private final List<ActorRef> peteList;
+	private final ArrayList<ActorRef> peteList;
+	private final ActorRef sint;
 	
-	AdministrationPete(String name, String color, ActorRef administrationPete) {
+	AdministrationPete(String name, String color, ActorRef administrationPete, ActorRef sint, ActorRef adminPete) {
 		super(name, color, administrationPete);
 		this.peteList = new ArrayList<ActorRef>();
+		this.sint = sint;
 	}
 
 	@Override
@@ -25,21 +27,27 @@ public class AdministrationPete extends Pete {
 	@Override
 	public void onReceive(Object message) throws Exception {
 		if (message instanceof Message) {
-			Message recievedMessage = (Message) message;
+			Message receivedMessage = (Message) message;
 			
-			switch (recievedMessage.getType()) {
+			switch (receivedMessage.getType()) {
 			case APPLY_FOR_MEETING:
 				if (!meetingGoingOn) {
 					getSender().tell(new Message(MessageType.ACCEPTED),
 							getSelf());
 					peteList.add(getSender());
 					if (checkIfMeetingPossible()) {
-						
+						meetingGoingOn = true;
+
+						/* TODO is deze clone goed? */
+						sint.tell(new PurposeMessage((ArrayList<ActorRef>) peteList.clone()), getSelf());
 					}
 				} else {
 					getSender().tell(new Message(MessageType.DECLINED),
 							getSelf());
 				}
+				break;
+			case MEETING_DONE:
+				meetingGoingOn = false;
 				break;
 			default:
 				break;
