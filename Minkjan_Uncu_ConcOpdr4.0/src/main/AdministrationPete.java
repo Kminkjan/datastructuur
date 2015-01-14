@@ -56,7 +56,41 @@ public class AdministrationPete extends Pete {
 	}
 	
 	private boolean checkIfMeetingPossible() {
-		
+		if(peteList.size() >=3 && !meetingGoingOn){
+//			restrictions to meet?? 3 - 4 pete?
+			return true;
+		}
+		return false;
+	}
+	
+	/** Checks which meeting can be held.
+	 * @return true, if collectersmeeting can be done, else false; do workmeeting
+	 */
+	private boolean whichMeetingPossible(){
+		int collectors = 0;
+		int workers = 0;
+		WorkPete blackWorker;
+		// loop through the list
+		for(ActorRef p : peteList){
+			// if instance of workpete add 1 to the counter and check if it is a black pete.
+			if (p instanceof WorkPete){
+				++workers;
+				// if it is a black pete save it in blackWorker.
+				if(((WorkPete) p).isBlack() && blackWorker = null){
+					blackWorker = p;
+				}
+			}else{
+//				must be instance of CollectorPete
+				++collectors;
+			}
+		}
+//		when there are collectors and workers check if there is an Black WorkPete.
+		if(collectors != 0 && workers >=1){
+			if(blackWorker!=null){
+//			if there is an blackworker, an collectorsmeeting can be held.
+				return true;
+			}
+		}
 		return false;
 	}
 }
