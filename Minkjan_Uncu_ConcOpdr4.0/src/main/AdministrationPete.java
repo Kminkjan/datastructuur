@@ -11,8 +11,8 @@ public class AdministrationPete extends Pete {
     private final ArrayList<ActorRef> peteList;
     private final ActorRef sint;
 
-    AdministrationPete(String name, String color, ActorRef administrationPete, ActorRef sint, ActorRef adminPete) {
-        super(name, color, administrationPete);
+    AdministrationPete(String name, String color, ActorRef sint) {
+        super(name, color);
         this.peteList = new ArrayList<ActorRef>();
         this.sint = sint;
     }
@@ -52,6 +52,11 @@ public class AdministrationPete extends Pete {
                     break;
             }
         }
+    }
+
+    @Override
+    public void applyForMeeting() {
+        /* DO nothing */
     }
 
     private boolean checkIfMeetingPossible() {

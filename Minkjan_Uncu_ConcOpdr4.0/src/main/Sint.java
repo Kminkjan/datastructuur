@@ -1,6 +1,5 @@
 package main;
 
-import akka.actor.Actor;
 import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 
@@ -18,7 +17,7 @@ public class Sint extends UntypedActor {
 
 
     public Sint(ActorRef adminPete) {
-        petesInMeeting = new ArrayList<ActorRef>();
+        this.petesInMeeting = new ArrayList<ActorRef>();
         this.adminPete = adminPete;
     }
 
