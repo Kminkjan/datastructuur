@@ -10,9 +10,8 @@ import main.Message.MessageType;
  * @author Kris & Artemis
  */
 public abstract class Pete extends UntypedActor {
-    private final String name;
-    private final String color;
-    private final ActorRef administrationPete;
+    private final String name, color;
+
 
     /**
      * Creates a new Piet
@@ -20,26 +19,27 @@ public abstract class Pete extends UntypedActor {
      * @param name  The name of the Piet
      * @param color The color of the Piet
      */
-    Pete(String name, String color, ActorRef administrationPete) {
+    Pete(String name, String color) {
         assert name != null : "name is null";
         assert !name.isEmpty() : "name is empty";
         assert color != null : "color is null";
         assert !color.isEmpty() : "color is empty";
-        assert administrationPete != null : "administrationPete is null";
 
         this.name = name;
         this.color = color;
-        this.administrationPete = administrationPete;
     }
 
     @Override
     public void preStart() throws Exception {
         doTask();
-        administrationPete.tell(new Message(MessageType.APPLY_FOR_MEETING), getSelf());
+        applyForMeeting();
     }
 
     @Override
     public void onReceive(Object message) throws Exception {
+        assert message != null : "Message is null";
+        assert message instanceof Message : "message is not a Message";
+
         if (message instanceof Message) {
             Message receivedMessage = (Message) message;
 
@@ -50,7 +50,7 @@ public abstract class Pete extends UntypedActor {
                 case DECLINED:
                     /* I can't */
                     doTask();
-                    administrationPete.tell(new Message(MessageType.APPLY_FOR_MEETING), getSelf());
+                    applyForMeeting();
                     break;
                 case INVITE_TO_MEETING:
                     /* Go to the meeting */
@@ -58,7 +58,7 @@ public abstract class Pete extends UntypedActor {
                     break;
                 case MEETING_DONE:
                     doTask();
-                    administrationPete.tell(new Message(MessageType.APPLY_FOR_MEETING), getSelf());
+                    applyForMeeting();
                     break;
                 default:
                     System.out.println("I shouldn't get this type of Messages");
@@ -67,6 +67,7 @@ public abstract class Pete extends UntypedActor {
         }
     }
 
+    public abstract void applyForMeeting();
 
     /**
      * Do the task this Pete has.
@@ -82,6 +83,10 @@ public abstract class Pete extends UntypedActor {
         return color.equals("black");
     }
 
+    /**
+     * Return the name of the Pete
+     * @return  The name of the pete
+     */
     public final String getPeteName() {
         return this.name;
     }
