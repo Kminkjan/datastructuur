@@ -1,9 +1,19 @@
 package main;
 
+import akka.actor.ActorRef;
+
 public class WorkPete extends Pete {
 
-	WorkPete(String name, String color) {
-		super("WorkPete " + name, color);
+
+	/**
+	 * Creates a new Piet
+	 *
+	 * @param name               The name of the Piet
+	 * @param color              The color of the Piet
+	 * @param administrationPete
+	 */
+	WorkPete(String name, String color, ActorRef administrationPete) {
+		super("WorkPete " + name, color, administrationPete);
 	}
 
 	@Override

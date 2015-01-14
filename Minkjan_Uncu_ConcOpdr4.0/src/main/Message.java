@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Message {
 	public enum MessageType {
-		APPLY_FOR_MEETING, INVITE_TO_MEETING, PURPOSE_MEETING, ACCEPTED, DECLINED, MEETING_DONE
+		APPLY_FOR_MEETING, INVITE_TO_MEETING, PURPOSE_MEETING, ACCEPTED, DECLINED, MEETING_DONE, ARRIVED_IN_MEETING
 	}
 	
 	private final MessageType type;
@@ -17,7 +17,7 @@ public class Message {
 		this.type = MessageType.PURPOSE_MEETING;
 	}
 	
-	public MessageType getType() {
+	public final MessageType getType() {
 		return this.type;
 	}
 
