@@ -20,5 +20,4 @@ public class Main {
 		hiActor.tell(Message.NO_GREETING,null);  
 		hiActor.tell(Message.INSULT,null);  
 	}
-
 }
