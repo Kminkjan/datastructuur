@@ -13,7 +13,7 @@ public class WorkPete extends Pete {
 	 * @param color              The color of the Piet
 	 * @param administrationPete
 	 */
-	WorkPete(String name, String color, ActorRef administrationPete) {
+	public WorkPete(String name, String color, ActorRef administrationPete) {
 		super("WorkPete " + name, color);
 		assert administrationPete != null : "administrationPete is null";
 
@@ -24,7 +24,6 @@ public class WorkPete extends Pete {
 		// Work
 		System.out.println(getPeteName() + " does Working");
 		Thread.sleep((long) (Math.random() * 8000));
-
 	}
 
 	@Override

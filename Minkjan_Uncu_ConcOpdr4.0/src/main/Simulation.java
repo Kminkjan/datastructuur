@@ -10,7 +10,7 @@ import akka.actor.Props;
 public class Simulation {
 
     private static final int WORKPETE_COUNT = 3;
-    private static final int COLLECTPETE_COUNT = 0;
+    private static final int COLLECTPETE_COUNT = 3;
 
     public Simulation() {
         ActorSystem system  = ActorSystem.create("HIApp");

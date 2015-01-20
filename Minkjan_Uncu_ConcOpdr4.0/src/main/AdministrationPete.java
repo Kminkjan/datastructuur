@@ -39,7 +39,7 @@ public class AdministrationPete extends Pete {
                 case APPLY_FOR_MEETING:
                     ApplyMessage applyMessage = (ApplyMessage) receivedMessage;
 
-                    if (applyMessage.isWorkPete() && !meetingGoingOn) {
+                    if (applyMessage.isWorkPete()) {
                         if (!meetingGoingOn) {
                         /* WorkPete */
                             if (applyMessage.isBlack()) {

@@ -26,6 +26,8 @@ public class Sint extends UntypedActor {
         if (message instanceof Message) {
             Message receivedMessage = (Message) message;
 
+            System.out.println("Sint: " + receivedMessage.getType());
+
             switch (receivedMessage.getType()) {
                 case PURPOSE_MEETING:
                     this.adminPete = getSender();
@@ -37,6 +39,8 @@ public class Sint extends UntypedActor {
                 case ARRIVED_IN_MEETING:
                     petesInMeeting.add(getSender());
 
+                    System.out.println("Sint: size: " + petesInMeeting.size() + " expected: " + expectedPetes);
+
                     if (petesInMeeting.size() == expectedPetes) {
 
                         System.out.println("\nSint: !!! MEETING TIME !!! \n");
@@ -47,6 +51,10 @@ public class Sint extends UntypedActor {
                             actor.tell(new Message(Message.MessageType.MEETING_DONE), getSelf());
                         }
                         adminPete.tell(new Message(Message.MessageType.MEETING_DONE), getSelf());
+
+                        /* Everyone has gone */
+                        petesInMeeting.clear();
+                        expectedPetes = 0;
                     }
                     break;
                 default:
