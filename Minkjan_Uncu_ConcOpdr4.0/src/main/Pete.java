@@ -1,6 +1,5 @@
 package main;
 
-import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import main.Message.MessageType;
 
@@ -11,7 +10,6 @@ import main.Message.MessageType;
  */
 public abstract class Pete extends UntypedActor {
     private final String name, color;
-
 
     /**
      * Creates a new Piet
@@ -42,6 +40,7 @@ public abstract class Pete extends UntypedActor {
 
         if (message instanceof Message) {
             Message receivedMessage = (Message) message;
+            System.out.println(name + " " + receivedMessage);
 
             switch (receivedMessage.getType()) {
                 case ACCEPTED:
@@ -67,6 +66,9 @@ public abstract class Pete extends UntypedActor {
         }
     }
 
+    /**
+     * Apply for a meeting, should be handled in subclasses
+     */
     public abstract void applyForMeeting();
 
     /**
@@ -85,7 +87,8 @@ public abstract class Pete extends UntypedActor {
 
     /**
      * Return the name of the Pete
-     * @return  The name of the pete
+     *
+     * @return The name of the pete
      */
     public final String getPeteName() {
         return this.name;

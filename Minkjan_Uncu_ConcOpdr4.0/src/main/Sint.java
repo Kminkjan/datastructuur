@@ -13,10 +13,10 @@ public class Sint extends UntypedActor {
 
     private final List<ActorRef> petesInMeeting;
     private int expectedPetes = 0;
-    private final ActorRef adminPete;
+    private ActorRef adminPete;
 
 
-    public Sint(ActorRef adminPete) {
+    public Sint() {
         this.petesInMeeting = new ArrayList<ActorRef>();
         this.adminPete = adminPete;
     }
@@ -24,11 +24,14 @@ public class Sint extends UntypedActor {
     @Override
     public void onReceive(Object message) throws Exception {
         if (message instanceof Message) {
-            Message recievedMessage = (Message) message;
+            Message receivedMessage = (Message) message;
 
-            switch (recievedMessage.getType()) {
+            System.out.println("Sint: " + receivedMessage.getType());
+
+            switch (receivedMessage.getType()) {
                 case PURPOSE_MEETING:
-                    for (ActorRef actor : ((PurposeMessage) recievedMessage).getAvailablePeteList()) {
+                    this.adminPete = getSender();
+                    for (ActorRef actor : ((PurposeMessage) receivedMessage).getAvailablePeteList()) {
                         actor.tell(new Message(Message.MessageType.INVITE_TO_MEETING), getSelf());
                         ++expectedPetes;
                     }
@@ -36,7 +39,11 @@ public class Sint extends UntypedActor {
                 case ARRIVED_IN_MEETING:
                     petesInMeeting.add(getSender());
 
+                    System.out.println("Sint: size: " + petesInMeeting.size() + " expected: " + expectedPetes);
+
                     if (petesInMeeting.size() == expectedPetes) {
+
+                        System.out.println("\nSint: !!! MEETING TIME !!! \n");
 
                         /* Start the meeting */
                         Thread.sleep(2000);
@@ -44,10 +51,11 @@ public class Sint extends UntypedActor {
                             actor.tell(new Message(Message.MessageType.MEETING_DONE), getSelf());
                         }
                         adminPete.tell(new Message(Message.MessageType.MEETING_DONE), getSelf());
-                    }
-                    break;
-                case MEETING_DONE:
 
+                        /* Everyone has gone */
+                        petesInMeeting.clear();
+                        expectedPetes = 0;
+                    }
                     break;
                 default:
                     break;

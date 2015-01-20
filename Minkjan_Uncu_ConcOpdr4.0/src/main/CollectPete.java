@@ -22,13 +22,14 @@ public class CollectPete extends Pete {
 
     @Override
     public void doTask() throws InterruptedException {
-        // COLLECT WISHLIST
+        /* COLLECT WISHLIST */
         System.out.println(getPeteName() + " does Collecting");
-        Thread.sleep(1000);
+        Thread.sleep((long) (Math.random() * 8000));
     }
 
     @Override
     public void applyForMeeting() {
+        System.out.println(getPeteName() + ": I will apply");
         adminPete.tell(new ApplyMessage(false, super.isBlack()), getSelf());
     }
 }
