@@ -13,7 +13,7 @@ public class CollectPete extends Pete {
      * @param color              The color of the Piet
      * @param administrationPete
      */
-    CollectPete(String name, String color, ActorRef administrationPete) {
+    public CollectPete(String name, String color, ActorRef administrationPete) {
         super("CollectPete " + name, color);
         assert administrationPete != null : "administrationPete is null";
 
@@ -29,7 +29,6 @@ public class CollectPete extends Pete {
 
     @Override
     public void applyForMeeting() {
-        System.out.println(getPeteName() + ": I will apply");
         adminPete.tell(new ApplyMessage(false, super.isBlack()), getSelf());
     }
 }

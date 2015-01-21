@@ -17,7 +17,7 @@ public abstract class Pete extends UntypedActor {
      * @param name  The name of the Piet
      * @param color The color of the Piet
      */
-    Pete(String name, String color) {
+    public Pete(String name, String color) {
         assert name != null : "name is null";
         assert !name.isEmpty() : "name is empty";
         assert color != null : "color is null";
@@ -56,6 +56,7 @@ public abstract class Pete extends UntypedActor {
                     getSender().tell(new Message(MessageType.ARRIVED_IN_MEETING), getSelf());
                     break;
                 case MEETING_DONE:
+                    /* Sint tells me the meeting is DONE, i can get back to work */
                     doTask();
                     applyForMeeting();
                     break;

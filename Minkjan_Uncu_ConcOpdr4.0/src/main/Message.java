@@ -10,6 +10,8 @@ public class Message {
 	private final MessageType type;
 	
 	public Message(MessageType type) {
+		assert type != null : "MessageType is null";
+
 		this.type = type;
 	}
 	
