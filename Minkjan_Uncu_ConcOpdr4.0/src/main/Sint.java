@@ -18,7 +18,6 @@ public class Sint extends UntypedActor {
     private int expectedPetes = 0;
     private ActorRef adminPete;
 
-
     /**
      * Creates the Sint
      */

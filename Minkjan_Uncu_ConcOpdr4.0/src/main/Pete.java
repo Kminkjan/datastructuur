@@ -29,7 +29,7 @@ public abstract class Pete extends UntypedActor {
 
     @Override
     public void preStart() throws Exception {
-        doTask();
+        /* Apply for initial meeting */
         applyForMeeting();
     }
 
