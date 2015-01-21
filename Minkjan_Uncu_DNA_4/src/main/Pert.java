@@ -3,14 +3,15 @@ package main;
 import java.util.ArrayList;
 
 public class Pert {
-	private ArrayList<Vertex> verticles;
+	private ArrayList<Vertex> vertices, startVertices;
 	private ArrayList<Edge> edges;
 	public Pert(){
-		this.verticles = new ArrayList<Vertex>();
+		this.vertices = new ArrayList<Vertex>();
+		this.startVertices = new ArrayList<Vertex>();
 		this.edges = new ArrayList<Edge>();
 	}
 	public void addVertex(String vertexName){
-		verticles.add(new Vertex(vertexName));
+		vertices.add(new Vertex(vertexName));
 
 	}
 
@@ -24,21 +25,29 @@ public class Pert {
 	 */
 	public void createRelation(String vertexFrom, String vertexTo, int weight){
 		Vertex from=null , to =null;
-		for(Vertex v: verticles){
+		for(Vertex v: vertices){
 			if(vertexFrom.equals(v.getName())){
 				from = v;
 			}else if(vertexTo.equals(v.getName())) {
 				to = v;
+
+				/* If also in in startVertices */
+				if (startVertices.contains(to)) {
+					/* The to vertex is not a start anymore */
+					startVertices.remove(to);
+				}
+
 			}
 		}
 		if(from == null){
 			from = new Vertex(vertexFrom);
 			System.out.println("VertexFrom does not exist, but is created");
-			verticles.add(from);
+			vertices.add(from);
+			startVertices.add(from);
 		}
 		if(to == null){
 			to = new Vertex(vertexTo);
-			verticles.add(to);
+			vertices.add(to);
 			System.out.println("VertexTo does not exist, but is created");
 		}
 		if(from.hasEdge(to)){
@@ -53,10 +62,8 @@ public class Pert {
 	}
 
 	public void calculateMin() {
-		for (Vertex vertex : verticles) {
-			if(vertex.getName().equals("A")) {
-				vertex.calculateMinTime(0);
-			}
+		for (Vertex vertex : startVertices) {
+			vertex.calculateMinTime(0);
 		}
 	}
 
@@ -64,7 +71,7 @@ public class Pert {
 	 * Print the Pert diagram
 	 */
     public void print() {
-        for (final Vertex vertex : verticles) {
+        for (final Vertex vertex : vertices) {
             vertex.print();
         }
     }

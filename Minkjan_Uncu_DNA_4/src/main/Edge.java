@@ -20,6 +20,7 @@ public class Edge {
 
 
 	public void calculateMinTime(int value) {
+		System.out.println("calculatemin: " + from.getName() + " -> " + to.getName() + ", value: " + (value+weight));
 		this.to.calculateMinTime(value+weight);
 	}
 
@@ -27,7 +28,8 @@ public class Edge {
 		System.out.print("-> "  + to.getName() + "(" + weight + ")");
 	}
 	public void calculateMaxTime(int value) {
-		this.from.calculateMaxTime(value-weight);
+		System.out.println("calculatemax: " + from.getName() + " -> " + to.getName() + ", value: " + (value-weight));
+		this.from.calculateMaxTime(value - weight);
 		
 	}
 }
