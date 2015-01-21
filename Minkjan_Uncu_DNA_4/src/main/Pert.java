@@ -31,7 +31,13 @@ public class Pert {
 			verticles.add(to);
 			System.out.println("VertexTo does not exist, but is created");
 		}
-		edges.add(new Edge(from, to, weight));
+		if(from.hasEdge(to)){
+			System.out.println("Edge already exists.");
+		}else{
+			from.getEdgesFromVertex().add(new Edge(from, to, weight));	
+		}
+		
+//		edges.add(new Edge(from, to, weight));
 	}
 	public void print(){
 		for(Edge e : edges){

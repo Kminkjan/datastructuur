@@ -16,4 +16,15 @@ public class Vertex {
 	public ArrayList<Edge> getEdgesFromVertex(){
 		return edges;
 	}
+	public void addEdge(Edge edge){
+		edges.add(edge);
+	}
+	public boolean hasEdge(Vertex to){
+		for(Edge e: edges){
+			if(e.getEnd()==to){
+				return true;
+			}
+		}
+		return false;
+	}
 }
