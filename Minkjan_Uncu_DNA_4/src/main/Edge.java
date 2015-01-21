@@ -28,7 +28,7 @@ public class Edge {
     public void calculateMinTime(int value) {
         assert value >= 0 : "value is to low";
 
-        System.out.println("calculatemin: " + from.getName() + " -> " + to.getName() + ", value: " + (value + weight));
+//        System.out.println("calculatemin: " + from.getName() + " -> " + to.getName() + ", value: " + (value + weight));
         this.to.calculateMinTime(value + weight);
     }
 
@@ -39,7 +39,7 @@ public class Edge {
     public void calculateMaxTime(int value) {
         assert value >= 0 : "value is to low";
 
-        System.out.println("calculatemax: " + from.getName() + " -> " + to.getName() + ", value: " + (value - weight));
+//        System.out.println("calculatemax: " + from.getName() + " -> " + to.getName() + ", value: " + (value - weight));
         this.from.calculateMaxTime(value - weight);
 
     }
