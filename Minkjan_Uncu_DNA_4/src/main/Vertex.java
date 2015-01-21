@@ -46,14 +46,20 @@ public class Vertex {
         System.out.println();
     }
 
-	public ArrayList<Edge> getEdgesFromVertex(){
-		return edgess;
+	public ArrayList<Edge> getOutGoingEdges(){
+		return this.outgoingEdges;
 	}
-	public void addEdge(Edge edge){
-		edges.add(edge);
+	public ArrayList<Edge> getInCommingEdges(){
+		return this.incomingEdges;
+	}
+	public void addOutGoingEdge(Edge edge){
+		this.outgoingEdges.add(edge);
+	}
+	public void addInCommingEdge(Edge edge){
+		this.incomingEdges.add(edge);
 	}
 	public boolean hasEdge(Vertex to){
-		for(Edge e: edges){
+		for(Edge e: outgoingEdges){
 			if(e.getEnd()==to){
 				return true;
 			}

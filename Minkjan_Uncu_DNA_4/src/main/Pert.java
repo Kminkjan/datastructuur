@@ -35,7 +35,7 @@ public class Pert {
 		if(from.hasEdge(to)){
 			System.out.println("Edge already exists.");
 		}else{
-			from.getEdgesFromVertex().add(new Edge(from, to, weight));	
+			from.addOutGoingEdge(new Edge(from, to, weight));	
 		}
 		
 //		edges.add(new Edge(from, to, weight));
