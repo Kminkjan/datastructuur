@@ -5,13 +5,6 @@ public class Main {
 	public static void main(String[] args) {
 
 		Pert pert = new Pert();
-//		pert.addVertex("A");
-//		pert.addVertex("B");
-//		pert.addVertex("C");
-//		pert.addVertex("D");
-//		pert.addVertex("E");
-//		pert.addVertex("F");
-//		pert.addVertex("G");
 
 		pert.createRelation("A", "B", 3);
 		pert.createRelation("A", "D", 1);

@@ -3,16 +3,21 @@ package main;
 import java.util.ArrayList;
 
 public class Pert {
-	private ArrayList<Vertex> vertices, startVertices;
-	private ArrayList<Edge> edges;
+	private final ArrayList<Vertex> vertices, startVertices;
+
+	/**
+	 * Create te Pert datastructure
+	 */
 	public Pert(){
 		this.vertices = new ArrayList<Vertex>();
 		this.startVertices = new ArrayList<Vertex>();
-		this.edges = new ArrayList<Edge>();
 	}
+
+	/**
+	 * Add a {@link main.Vertex} to the Pert diagram
+	 */
 	public void addVertex(String vertexName){
 		vertices.add(new Vertex(vertexName));
-
 	}
 
 	/**
@@ -24,6 +29,10 @@ public class Pert {
 	 * @param weight    The weight of the relation
 	 */
 	public void createRelation(String vertexFrom, String vertexTo, int weight){
+		assert vertexFrom != null : "vertexFrom is null";
+		assert vertexTo != null : "vertexTo is null";
+		assert weight >= 0 : "weight is too low (<0)";
+
 		Vertex from=null , to =null;
 		for(Vertex v: vertices){
 			if(vertexFrom.equals(v.getName())){
@@ -36,7 +45,6 @@ public class Pert {
 					/* The to vertex is not a start anymore */
 					startVertices.remove(to);
 				}
-
 			}
 		}
 		if(from == null){
@@ -52,15 +60,16 @@ public class Pert {
 		}
 		if(from.hasEdge(to)){
 			System.out.println("Edge already exists.");
-		}else{
+		}else {
 			Edge e = new Edge(from, to, weight);
-			from.addOutGoingEdge(e);	
+			from.addOutGoingEdge(e);
 			to.addInCommingEdge(e);
 		}
-		
-//		edges.add(new Edge(from, to, weight));
 	}
 
+	/**
+	 * Start calculating all the minimal en maximal values of the {@link main.Vertex Vertexes}
+	 */
 	public void calculateMin() {
 		for (Vertex vertex : startVertices) {
 			vertex.calculateMinTime(0);
