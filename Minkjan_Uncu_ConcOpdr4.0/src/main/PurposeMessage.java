@@ -13,6 +13,9 @@ public final class PurposeMessage extends Message {
 
     public PurposeMessage(List<ActorRef> availablePeteList) {
         super(MessageType.PURPOSE_MEETING);
+        assert availablePeteList != null : "availablePeteList is null";
+        assert !availablePeteList.isEmpty() : "availablePeteList is empty";
+
         this.availablePeteList = availablePeteList;
     }
 

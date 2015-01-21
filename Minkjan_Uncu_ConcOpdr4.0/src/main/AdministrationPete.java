@@ -13,8 +13,10 @@ public class AdministrationPete extends Pete {
     private final ActorRef sint;
     private final LinkedList<ActorRef> workerList, collectorList, blackWorkerList;
 
-    AdministrationPete(String name, String color, ActorRef sint) {
+    public AdministrationPete(String name, String color, ActorRef sint) {
         super(name, color);
+        assert sint != null : "Sint is null";
+
         this.peteList = new ArrayList<ActorRef>();
         this.sint = sint;
         this.workerList = new LinkedList<ActorRef>();
