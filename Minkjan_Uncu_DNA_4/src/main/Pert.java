@@ -32,7 +32,6 @@ public class Pert {
 			System.out.println("VertexTo does not exist, but is created");
 		}
 		edges.add(new Edge(from, to, weight));
-		
 	}
 	public void print(){
 		for(Edge e : edges){
