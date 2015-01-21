@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Vertex {
 
-    private int edgesProcessed, minValue;
+    private int edgesProcessed, minValue, maxValue;
     private final String vertexName;
 
 	private final ArrayList<Edge> incomingEdges, outgoingEdges;
@@ -28,17 +28,35 @@ public class Vertex {
 
         /* all the edges have arrived in the vertex */
         if (incomingEdges.isEmpty() || this.edgesProcessed == incomingEdges.size()) {
-
+        	this.edgesProcessed = 0;
             /* Recursively call all the outgoing edges */
             for (final Edge edge : outgoingEdges) {
                 edge.calculateMinTime(value);
             }
-            this.edgesProcessed = 0;
+            
+            if(outgoingEdges.isEmpty()){
+            	calculateMaxTime(minValue);
+            }
+        }
+    }
+    public void calculateMaxTime(int value){
+    	if(edgesProcessed == 0|| this.maxValue> value){
+    		this.maxValue = value;
+    	}
+    	++this.edgesProcessed;
+        /* all the edges have arrived in the vertex */
+        if (outgoingEdges.isEmpty() || this.edgesProcessed == outgoingEdges.size()) {
+        	this.edgesProcessed = 0;
+            /* Recursively call all the outgoing edges */
+            for (final Edge edge : incomingEdges) {
+                edge.calculateMaxTime(value);
+            }
+            
         }
     }
 
     public void print() {
-        System.out.print("VERTEX: " + vertexName +"(" + minValue + "," + 0 + ")" + ": ");
+        System.out.print("VERTEX: " + vertexName +"(" + minValue + "," + maxValue + ")" + ": ");
         for(final Edge edge : outgoingEdges) {
             System.out.print(", ");
             edge.print();

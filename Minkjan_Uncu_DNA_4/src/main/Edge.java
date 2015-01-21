@@ -26,5 +26,9 @@ public class Edge {
 	public void print() {
 		System.out.print("-> "  + to.getName() + "(" + weight + ")");
 	}
+	public void calculateMaxTime(int value) {
+		this.from.calculateMaxTime(value-weight);
+		
+	}
 }
 
