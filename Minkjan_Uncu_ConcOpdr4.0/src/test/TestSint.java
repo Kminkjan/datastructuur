@@ -1,4 +1,7 @@
-package main;
+package test;
+
+import main.Message;
+import main.Sint;
 
 import static junit.framework.TestCase.fail;
 
