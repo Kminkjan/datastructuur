@@ -1,8 +1,8 @@
 package main;
 
 public class Edge {
-	private int weight;
-	private Vertex from, to;
+	private final int weight;
+	private final Vertex from, to;
 	public Edge(Vertex from, Vertex to, int weight){
 		this.weight = weight;
 		this.from = from;
@@ -16,6 +16,15 @@ public class Edge {
 	}
 	public int getWeight(){
 		return this.weight;
+	}
+
+
+	public void calculateMinTime(int value) {
+		this.to.calculateMinTime(value+weight);
+	}
+
+	public void print() {
+		System.out.println(" -> "  + to.getName());
 	}
 }
 

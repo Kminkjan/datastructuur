@@ -9,15 +9,16 @@ public class Pert {
 		this.verticles = new ArrayList<Vertex>();
 		this.edges = new ArrayList<Edge>();
 	}
-	public void addVertex(int vertexValue){
-		verticles.add(new Vertex(vertexValue));
+	public void addVertex(String vertexName){
+		verticles.add(new Vertex(vertexName));
+
 	}
-	public void createRelation(int vertexFrom, int vertexTo, int weight){
+	public void createRelation(String vertexFrom, String vertexTo, int weight){
 		Vertex from=null , to =null;
 		for(Vertex v: verticles){
-			if(vertexFrom == v.getValue()){
+			if(vertexFrom.equals(v.getName())){
 				from = v;
-			}else if(vertexTo == v.getValue()){
+			}else if(vertexTo.equals(v.getName())){
 				to = v;
 			}
 		}
@@ -40,8 +41,12 @@ public class Pert {
 //		edges.add(new Edge(from, to, weight));
 	}
 	public void print(){
-		for(Edge e : edges){
-			System.out.println("start: "+ e.getStart()+ " with weight: " + e.getWeight()  +" -> end: "+ e.getEnd());
+		for(final Vertex vertex : verticles) {
+			vertex.print();
 		}
+
+//		for(Edge e : edges){
+//			System.out.println("start: "+ e.getStart()+ " with weight: " + e.getWeight()  +" -> end: "+ e.getEnd());
+//		}
 	}
 }
