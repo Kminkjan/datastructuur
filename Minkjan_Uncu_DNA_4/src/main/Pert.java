@@ -13,12 +13,21 @@ public class Pert {
 		verticles.add(new Vertex(vertexName));
 
 	}
+
+	/**
+	 * Creates a wheighted relation ({@link main.Edge}) between two {@link main.Vertex Vertexes}.
+	 * If a {@link main.Vertex} does not exist, a new one is created.
+	 *
+	 * @param vertexFrom    The {@link main.Vertex} name where that has the outgoing relation
+	 * @param vertexTo  The {@link main.Vertex} name where that has the incoming relation
+	 * @param weight    The weight of the relation
+	 */
 	public void createRelation(String vertexFrom, String vertexTo, int weight){
 		Vertex from=null , to =null;
 		for(Vertex v: verticles){
 			if(vertexFrom.equals(v.getName())){
 				from = v;
-			}else if(vertexTo.equals(v.getName())){
+			}else if(vertexTo.equals(v.getName())) {
 				to = v;
 			}
 		}
@@ -42,13 +51,21 @@ public class Pert {
 		
 //		edges.add(new Edge(from, to, weight));
 	}
-	public void print(){
-		for(final Vertex vertex : verticles) {
-			vertex.print();
-		}
 
-//		for(Edge e : edges){
-//			System.out.println("start: "+ e.getStart()+ " with weight: " + e.getWeight()  +" -> end: "+ e.getEnd());
-//		}
+	public void calculateMin() {
+		for (Vertex vertex : verticles) {
+			if(vertex.getName().equals("A")) {
+				vertex.calculateMinTime(0);
+			}
+		}
 	}
+
+	/**
+	 * Print the Pert diagram
+	 */
+    public void print() {
+        for (final Vertex vertex : verticles) {
+            vertex.print();
+        }
+    }
 }

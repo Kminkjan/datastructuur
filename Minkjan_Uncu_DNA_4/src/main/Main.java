@@ -25,6 +25,8 @@ public class Main {
 		pert.createRelation("G", "F", 2);
 		pert.createRelation("F", "C", 1);
 
+		pert.calculateMin();
+
 		pert.print();
 		
 	}

@@ -21,13 +21,13 @@ public class Vertex {
 
     public void calculateMinTime(int value) {
         /* If this is the first edge to be processed OR the value of the edge is lower then the current minValue */
-        if (edgesProcessed == 0 || this.minValue > value) {
+        if (edgesProcessed == 0 || this.minValue < value) {
             this.minValue = value;
         }
         ++this.edgesProcessed;
 
         /* all the edges have arrived in the vertex */
-        if (this.edgesProcessed == incomingEdges.size()) {
+        if (incomingEdges.isEmpty() || this.edgesProcessed == incomingEdges.size()) {
 
             /* Recursively call all the outgoing edges */
             for (final Edge edge : outgoingEdges) {
@@ -38,7 +38,7 @@ public class Vertex {
     }
 
     public void print() {
-        System.out.print(vertexName + ": ");
+        System.out.print("VERTEX: " + vertexName +"(" + minValue + "," + 0 + ")" + ": ");
         for(final Edge edge : outgoingEdges) {
             System.out.print(", ");
             edge.print();

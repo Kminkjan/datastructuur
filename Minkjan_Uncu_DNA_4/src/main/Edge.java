@@ -24,7 +24,7 @@ public class Edge {
 	}
 
 	public void print() {
-		System.out.println(" -> "  + to.getName());
+		System.out.print("-> "  + to.getName() + "(" + weight + ")");
 	}
 }
 
