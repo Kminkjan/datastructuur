@@ -68,7 +68,7 @@ public class PietTest {
     }
 
     @Test
-    void testOnlyCollectMeeting() {
+    public void testOnlyCollectMeeting() {
         /* Only collectmeetings can happen, and no-one gets declined */
 
         List<ActorRef> actorList = new ArrayList<ActorRef>();
@@ -151,6 +151,31 @@ public class PietTest {
             actorList.add(temp);
         }
 
+        try {
+            Thread.sleep(TIMEOUT);
+            system.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testNoWorkmeeting(){
+        /* Only 1 WorkPete, There should only be collect meetings */
+        List<ActorRef> actorList = new ArrayList<ActorRef>();
+
+        ActorSystem system = ActorSystem.create("HIApp");
+        ActorRef sint = system.actorOf(Props.create(Sint.class));
+        // administration pete.
+        ActorRef admin = system.actorOf(Props.create(AdministrationPete.class, "Admin", "black", sint));
+        // the only work pete.
+        ActorRef workPete = system.actorOf(Props.create(TestWorkPete.class, "nr" + 1, "black", admin));
+        // create all the collect petes
+        for (int i = 0; i < 10; i++) {
+            ActorRef temp = system.actorOf(Props.create(TestCollectPete.class, "nr" + i, "black", admin));
+            actorList.add(temp);
+        }
+
+        
         try {
             Thread.sleep(TIMEOUT);
             system.shutdown();
