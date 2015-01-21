@@ -17,6 +17,31 @@ public class PietTest {
     public void test() {
         /* Test 3 workpetes, noone should be declined */
         /* Test 1 black work and 3 collect, no-one should be declined */
+    	
+    	// TODO moet nog nagekeken en getest worden.
+    	
+        List<ActorRef> actorList = new ArrayList<ActorRef>();
+
+        ActorSystem system = ActorSystem.create("HIApp");
+        ActorRef sint = system.actorOf(Props.create(Sint.class));
+        ActorRef admin = system.actorOf(Props.create(AdministrationPete.class, "Admin", "black", sint));
+
+        for (int i = 0; i < 10; i++) {
+            ActorRef temp = system.actorOf(Props.create(WorkPete.class, "nr" + i, "black", admin));
+            actorList.add(temp);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            ActorRef temp = system.actorOf(Props.create(TestCollectPete.class, "nr" + i, "black", admin));
+            actorList.add(temp);
+        }
+
+        try {
+            Thread.sleep(TIMEOUT);
+            system.shutdown();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
