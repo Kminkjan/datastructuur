@@ -15,7 +15,7 @@ public class TestCollectPete extends CollectPete {
      *
      * @param name               The name of the Piet
      * @param color              The color of the Piet
-     * @param administrationPete
+     * @param administrationPete    The Admin Pete ActorRef
      */
     public TestCollectPete(String name, String color, ActorRef administrationPete) {
         super(name, color, administrationPete);
@@ -24,7 +24,7 @@ public class TestCollectPete extends CollectPete {
     @Override
     public void onReceive(Object message) throws Exception {
         if (message instanceof Message && ((Message) message).getType() == Message.MessageType.DECLINED) {
-                /* I have recieved a DECILNED message, this shouldn't happen */
+            /* I have received a DECLINED message, this shouldn't happen */
             fail();
         }
         super.onReceive(message);

@@ -83,6 +83,7 @@ public class AdministrationPete extends Pete {
         System.out.println("worksize: " + workerList.size() + " - blacksize: " + blackWorkerList.size() + " - collectsize: " + collectorList.size() + "\n");
 
         if (collectorList.size() > 2 && !blackWorkerList.isEmpty()) {
+            /* CollectMeeting can happen */
             System.out.println("Admin: start collectoverleg");
             meetingGoingOn = true;
             /* 3+ CollectPete and 1 Black WorkPete */
@@ -111,6 +112,7 @@ public class AdministrationPete extends Pete {
 
             return true;
         } else if (workerList.size() + blackWorkerList.size() > 2) {
+            /* WorkMeeting can happen */
             System.out.println("Admin: start workoverleg");
             meetingGoingOn = true;
 

@@ -9,7 +9,7 @@ import akka.actor.Props;
  */
 public class Simulation {
 
-    private static final int WORKPETE_COUNT = 3;
+    private static final int WORKPETE_COUNT = 3, BLACK_WORKPETE_COUNT = 3;
     private static final int COLLECTPETE_COUNT = 3;
 
     public Simulation() {
@@ -18,6 +18,10 @@ public class Simulation {
         ActorRef admin= system.actorOf(Props.create(AdministrationPete.class, "Admin", "black", sint));
 
         for (int i = 0; i < WORKPETE_COUNT; i++) {
+            ActorRef temp = system.actorOf(Props.create(WorkPete.class, "nr" + i, "red", admin));
+        }
+
+        for (int i = 0; i < BLACK_WORKPETE_COUNT; i++) {
             ActorRef temp = system.actorOf(Props.create(WorkPete.class, "nr" + i, "black", admin));
         }
 

@@ -54,7 +54,7 @@ public class Sint extends UntypedActor {
                         System.out.println("\nSint: \"The meeting can start!\" \n");
 
                         /* Start the meeting */
-                        Thread.sleep(2000);
+                        Thread.sleep((long) (Math.random() * 2000));
 
                         /* Tell every attending Pete to resume with their wokr */
                         for (ActorRef actor : petesInMeeting) {

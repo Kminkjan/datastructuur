@@ -11,14 +11,11 @@ import java.util.List;
 
 public class PietTest {
 
-    private static final int TIMEOUT = 160000;
+    private static final int TIMEOUT = 8000;
 
     @Test
     public void test() {
-        /* Test 3 workpetes, noone should be declined */
-        /* Test 1 black work and 3 collect, no-one should be declined */
-    	
-    	// TODO moet nog nagekeken en getest worden.
+        /* Basic generic test */
     	
         List<ActorRef> actorList = new ArrayList<ActorRef>();
 
@@ -61,6 +58,7 @@ public class PietTest {
 
         try {
             Thread.sleep(TIMEOUT);
+            System.out.println("SHUTDOWN");
             system.shutdown();
         } catch (InterruptedException e) {
             e.printStackTrace();
